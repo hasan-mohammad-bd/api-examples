@@ -15,9 +15,14 @@ const searchFood = async () => {
     const url = `
     https://www.themealdb.com/api/json/v1/1/search.php?s=${searchText}
     `;
-    const res = await fetch(url);
-    const data = await res.json();
-    displaySearchResult(data.meals);
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+        displaySearchResult(data.meals);
+    }
+    catch (error) {
+        console.log(error);
+    }
     // console.log(url);
     //previous way
     // fetch(url)

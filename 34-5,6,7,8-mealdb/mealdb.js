@@ -1,12 +1,12 @@
 //to get input value pressing the button
+document.getElementById("error-message").style.display = "none"
 const searchFood = () => {
     const searchField = document.getElementById("search-field");
     const searchText = searchField.value;
     // console.log(searchText);
 
     //clear data
-    searchField.value = "";
-
+    document.getElementById("error-message").style.display = "none";
     //here if search button is pressed without search anything there will show a message else show the result
     if(searchField.value == ""){
         //home work: please show an message here
@@ -14,6 +14,8 @@ const searchFood = () => {
     else {
             //load data
     //to create dynamic url below code in necessary, below link must be in https format otherwise it will not work
+
+    //here intentionally making mistake to catch error, the v14 was 1 
     const url = `
     https://www.themealdb.com/api/json/v1/1/search.php?s=${searchText}
     `
@@ -21,12 +23,18 @@ const searchFood = () => {
     fetch(url)
     .then(res => res.json())
     .then(data => displaySearchResult(data.meals))
+    .catch(error => displayError(error))
     }
 
 
     
 
 }
+//here how the 404 picture is placed 
+const displayError = error => {
+    document.getElementById("error-message").style.display = "block";
+}
+
 //putting api to the right place
 const displaySearchResult = meals => {
     const searchResult = document.getElementById("search-result");
